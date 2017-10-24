@@ -1,0 +1,15 @@
+.bold-header {
+	font-weight: bold;
+	font-size: 14px;
+}
+.row.bold-header, .row.student-list {
+	margin-bottom: 0;
+	border-bottom: 1px solid;
+	text-align: center;
+}
+div.row.student-list:hover {
+	background: #cbffcb;
+	cursor: pointer;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
