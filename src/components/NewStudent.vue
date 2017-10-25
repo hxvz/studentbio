@@ -1,5 +1,6 @@
 <template>
   <div id="new-student">
+
     <div class="fixed-action-btn">
     <a class="btn-floating btn-large waves-effect waves-light btn modal-trigger green" href="#modal">
       <i class="large material-icons">account_circle</i>

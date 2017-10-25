@@ -1,8 +1,20 @@
 <template>
-  <div class="index">
-      <label for="username"><input type="text"></label>
-      <label for="password"><input type="text"></label>
-      <input type="submit" value="Login" @click="login">
+  <div id="index" class="container">
+
+    <div class="row center"> 
+      <h3>ALC 2.0 - Moving you Forward</h3>
+    </div>
+
+    <div class="row">
+      <div class="col m6 offset-m3">
+      <div>
+        <label for="username"><input type="text" placeholder="username"></label>  
+      </div>
+      <div><label for="password"><input type="password" placeholder="Password"></label>
+      </div>
+      <input class="btn" type="submit" value="Login" @click="login"> <router-link :to="{name: 'Register'}" class="btn">Signup</router-link>
+    </div>
+  </div>
   </div>
 </template>
 
@@ -16,29 +28,8 @@ export default {
   },
   methods: {
     login () {
-      this.$router.push({name: 'ViewStudents'})
+      this.$router.push({name: 'StudentIndex'})
     }
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #35495E;
-}
-</style>

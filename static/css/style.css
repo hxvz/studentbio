@@ -1,13 +1,24 @@
-.bold-header {
+.padding-left-5 { padding-left: 5%;}
+.padding-top-5 { padding-top: 5%; }
+.padding-down-5 { padding-bottom: 5%; }
+.padding-right-5 { padding-right: 5%; }
+
+.space-down-5 {margin-bottom: 5%;}
+.btn > a {color: #fff;}
+
+div.label {
 	font-weight: bold;
-	font-size: 14px;
+	font-size: 10px;
+	color: #999691;
 }
-.row.bold-header, .row.student-list {
+nav.top {
+	background-color: #0f5076;
+}
+tr {
 	margin-bottom: 0;
-	border-bottom: 1px solid;
 	text-align: center;
 }
-div.row.student-list:hover {
+tr:hover {
 	background: #cbffcb;
 	cursor: pointer;
 	margin-bottom: 0;
