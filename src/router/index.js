@@ -6,6 +6,7 @@ import StudentDetails from '@/components/StudentDetails'
 import Register from '@/components/Register'
 import StudentIndex from '@/components/StudentIndex'
 import Profile from '@/components/Profile'
+import AdminIndex from '@/components/AdminIndex'
 
 Vue.use(Router)
 
@@ -25,6 +26,11 @@ export default new Router({
       path: '/student',
       name: 'StudentIndex',
       component: StudentIndex
+    },
+    {
+      path: '/admin',
+      name: 'AdminIndex',
+      component: AdminIndex
     },
     {
       path: '/profile/:id',

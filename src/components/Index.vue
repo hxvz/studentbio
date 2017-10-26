@@ -1,8 +1,11 @@
 <template>
+  <div id="index">
+    <div class="intro header">
+      <h1>Some Nice Header</h1>
+    </div>
   <div id="index" class="container">
-
     <div class="row center"> 
-      <h3>ALC 2.0 - Moving you Forward</h3>
+      <h3>ALC 2.0</h3>
     </div>
 
     <div class="row">
@@ -16,6 +19,7 @@
     </div>
   </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -23,12 +27,12 @@ export default {
   name: 'hello',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js PWA'
+      msg: ''
     }
   },
   methods: {
     login () {
-      this.$router.push({name: 'StudentIndex'})
+      this.$router.push({name: 'AdminIndex'})
     }
   }
 }

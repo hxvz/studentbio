@@ -1,9 +1,14 @@
+
 .padding-left-5 { padding-left: 5%;}
 .padding-top-5 { padding-top: 5%; }
 .padding-down-5 { padding-bottom: 5%; }
 .padding-right-5 { padding-right: 5%; }
 
 .space-down-5 {margin-bottom: 5%;}
+
+
+.header.intro {color: #fff; background: #000; padding: 10% 25%} 
+.header.intro h1 {margin: 0;}
 .btn > a {color: #fff;}
 
 div.label {
