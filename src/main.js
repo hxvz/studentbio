@@ -6,6 +6,7 @@ import router from './router'
 import '@/assets/css/materialize.min.css'
 import jquery from 'jquery'
 import '@/assets/js/materialize.min'
+import store from '@/stores/main'
 
 Vue.config.productionTip = false
 
@@ -13,6 +14,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })

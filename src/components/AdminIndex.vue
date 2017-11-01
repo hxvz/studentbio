@@ -6,7 +6,7 @@
       <div class="row">
         <div class="col m12"><h4>REGISTERED MEMBER</h4></div>
         <table>
-          <tr v-for="(student, index) in students">          
+          <tr v-for="(student, index) in students" @click="update(student.username)">          
             <td>{{student.first_name + " " +student.last_name}}</td>
             <td><strong>@{{student.username}}</strong></td>
             <td>{{student.state}}</td>
@@ -40,6 +40,9 @@ export default {
     programs (program) {
       var programs = ['Mobile Apps', 'Web Development', 'Product Design']
       return programs[--program]
+    },
+    update (username) {
+      this.$router.push({name: 'UpdateStudentRecord', params: {'u': username}});
     }
   },
   created () {

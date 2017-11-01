@@ -22,15 +22,15 @@
 		<div class="row">
 			<div class="col m5">
 				<div>Gender</div>
-				<input class="with-gap" name="gender" type="radio" id="male" checked />
+				<input class="with-gap" value="1" name="gender" type="radio" id="male" v-model="candidate.gender" />
     <label for="male">Male</label>
 
-    <input class="with-gap" name="gender" type="radio" id="female" checked />
+    <input class="with-gap" name="gender" value="0" type="radio" id="female" v-model="candidate.gender" />
     <label for="female">Female</label>
 	
 			</div>
 			<div class="col m5 offset-m1 input-field">
-				<select>
+				<select v-model="candidate.program">
       <option value="1">Mobile App</option>
       <option value="2">Web Development</option>
       <option value="3">Product Design</option>
@@ -59,28 +59,47 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 	export default {
 		name: 'register',
 		data () {
 			return {
 				candidate: {
-					first_name: null,
-					last_name: null,
-					gender: null,
-					program: null,
-					skills: []
+					first_name: 'Taiwo',
+					last_name: 'Kolawole',
+					gender: 1,
+					username: 'omokolataiwo',
+					password: 'snakman',
+					skill_set: ['PHP', 'JavaScript', 'Photoshop'],
+					address: '11 Oguntade street',
+					state: 13,
+					program: 1,
+					email: 'omokolataiwo@yahoo.com'
 				}
 			}
 		},
 		methods: {
 			register() {
-				console.log(this.candidate.first_name)
+				axios.post('http://localhost:5000/create', {candidate: this.candidate}).then(function(res) {
+					if (!res.data.error) {
+						this.$store.commit('SET_CURRENT_USER', {currentUser: res.data.uid});
+						this.$route.push('StudentIndex', {params});
+					}
+
+				});
+			},
+			programChanged () {
+				alert('cua')
 			}
 		}
 		,
 		mounted() {
 			var _vm = this;
 			$('select').material_select();
+			$('select').change(function() {
+				_vm.candidate.program = this.value
+			});
 			$('.chips').material_chip();
 			$('.chips').on('chip.add', function(e, chip){
 				_vm.candidate.skills.push(chip.tag);

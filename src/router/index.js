@@ -7,6 +7,7 @@ import Register from '@/components/Register'
 import StudentIndex from '@/components/StudentIndex'
 import Profile from '@/components/Profile'
 import AdminIndex from '@/components/AdminIndex'
+import UpdateStudentRecord from '@/components/UpdateStudentRecord'
 
 Vue.use(Router)
 
@@ -31,6 +32,11 @@ export default new Router({
       path: '/admin',
       name: 'AdminIndex',
       component: AdminIndex
+    },
+    {
+      path: '/admin/:u',
+      name: 'UpdateStudentRecord',
+      component: UpdateStudentRecord
     },
     {
       path: '/profile/:id',
