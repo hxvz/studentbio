@@ -44,6 +44,11 @@ import studentRecords from '@/data/students_record'
     },
     mounted () {
       this.students = studentRecords
+    },
+    created() {
+      var currentUser = this.$store.state.currentUser;
+      if (currentUser == null) this.$router.push({name: 'Index'});
+      console.log(currentUser);
     }
   }
 </script>

@@ -81,19 +81,18 @@ import axios from 'axios'
 		},
 		methods: {
 			register() {
+				var _vm = this;
+
 				axios.post('http://localhost:5000/create', {candidate: this.candidate}).then(function(res) {
+					
 					if (!res.data.error) {
-						this.$store.commit('SET_CURRENT_USER', {currentUser: res.data.uid});
-						this.$route.push('StudentIndex', {params});
+						_vm.$store.commit('SET_CURRENT_USER', {currentUser: res.data.uid});
+						_vm.$router.push({name:'StudentIndex'});
 					}
 
 				});
-			},
-			programChanged () {
-				alert('cua')
-			}
-		}
-		,
+			},			
+		},
 		mounted() {
 			var _vm = this;
 			$('select').material_select();

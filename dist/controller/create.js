@@ -17,7 +17,7 @@ module.exports = function (req, res) {
       if (newCandidate.hasError())
         return res.json(prepareErrorMessage(newCandidate))
 
-      return res.json(newUserCreated(newCandidate.uid));
+      return res.json(newUserCreated(newCandidate.get('uid')));
     });
   });
 }
@@ -25,7 +25,8 @@ module.exports = function (req, res) {
 function prepareErrorMessage(model) {
   return {error: true, message: model.errorMessage};
 }
+
 function newUserCreated(userid) {
-  console.log('New user created');
+  console.log('New user created.', userid);
   return {error: false, uid: userid}
 }

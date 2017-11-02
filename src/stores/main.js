@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
+import * as Cookies from 'js-cookie'
 
 Vue.use(Vuex);
 
@@ -10,14 +12,20 @@ const store = new Vuex.Store({
 	actions: {
 
 	},
+	plugins: [
+    createPersistedState({
+  	storage: {
+      getItem: function(key) { return Cookies.get(key); },
+      setItem: function (key, value){
+      	Cookies.set(key, value, { expires: 3 });
+      },
+      removeItem: function(key) { Cookies.remove(key); }
+    }
+  })
+  ],
 	mutations: {
-		SET_CURRENT_USER: function (state, userid) {
-			state.currentUser = userid;
-		}
-	},
-	getters: {
-		getCurrentUser: function(state) {
-			return state.currentUser;
+		SET_CURRENT_USER: function (state, payload) {
+			state.currentUser = payload.currentUser;
 		}
 	}
 });
