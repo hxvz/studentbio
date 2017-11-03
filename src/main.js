@@ -7,6 +7,7 @@ import '@/assets/css/materialize.min.css'
 import jquery from 'jquery'
 import '@/assets/js/materialize.min'
 import store from '@/stores/main'
+import axios from 'axios'
 
 Vue.config.productionTip = false
 

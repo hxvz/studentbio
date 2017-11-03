@@ -1,6 +1,6 @@
 <template>
   <div id="student-index">
-    <member-head userid="1111"></member-head>
+    <member-head></member-head>
     <div class="container">
       <div class="row">
         <h4><span class="chip">231</span>Registered Students</h4>
@@ -26,6 +26,9 @@
 <script>
 import memberhead from '@/components/_support/member-head'
 import studentRecords from '@/data/students_record'
+import axios from 'axios'
+import SERVER_URL from '@/config/server_url'
+
   export default {
     name: 'student-index',
     data () {
@@ -43,12 +46,23 @@ import studentRecords from '@/data/students_record'
       }
     },
     mounted () {
-      this.students = studentRecords
+      // this.students = studentRecords
     },
     created() {
+      this.students = studentRecords;
+      var _vm = this;
       var currentUser = this.$store.state.currentUser;
       if (currentUser == null) this.$router.push({name: 'Index'});
-      console.log(currentUser);
+
+      var allRegisteredStudents = [];
+
+      axios.get(SERVER_URL.base + '/get-registered-students').then(function(res){
+        console.log(res.data);
+        if (!res.data.errors)
+          allRegisteredStudents = res.data
+      })
+
+      allRegisteredStudents.concat(this.students);
     }
   }
 </script>

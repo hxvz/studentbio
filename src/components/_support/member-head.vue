@@ -5,7 +5,7 @@
       <a href="#" class="brand-logo">ALC 2.0 Portal</a>
       <ul class="right hide-on-med-and-down">
         <li><router-link :to="{name: 'StudentIndex'}"><i class="material-icons left">home</i>Dash Board</router-link>></li>
-        <li><router-link :to="{name: 'Profile', params: {id: userid}}"><i class="material-icons left">device_hub</i>Profile</router-link>></li>
+        <li><router-link :to="{name: 'Profile'}"><i class="material-icons left">device_hub</i>Profile</router-link>></li>
         <li><router-link :to="{name: 'Logout'}"><i class="material-icons right">exit_to_app</i>Logout</router-link></li>
       </ul>
     </div>
@@ -15,7 +15,6 @@
 
 <script>
   export default {
-    name: 'member-head',
-    props: ['userid']
+    name: 'member-head'
   }
 </script>

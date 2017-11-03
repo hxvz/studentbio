@@ -11,12 +11,10 @@ app.use(serveStatic(__dirname));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json())
 
-var create = require('./controller/create');
-app.route('/create').post(create);
-
-app.get('/students', function(){});
-
-app.get('/edit', function(){});
+app.route('/create').post(require('./controller/create'));
+app.route('/student').get(require('./controller/registered-students'));
+app.get('/student/:id', require('./controller/student'));
+app.get('/student/edit/:id', require('./controller/update-student'));
 
 app.get('/remove', function(){});
 

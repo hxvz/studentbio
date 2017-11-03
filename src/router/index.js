@@ -39,7 +39,7 @@ export default new Router({
       component: UpdateStudentRecord
     },
     {
-      path: '/profile/:id',
+      path: '/profile',
       name: 'Profile',
       component: Profile
     },

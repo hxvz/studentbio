@@ -42,6 +42,8 @@
 <script>
 import students from '@/data/students_record'
 import memberheader from '@/components/_support/member-head'
+import axios from 'axios'
+import SERVER_URL from '@/config/server_url'
 export default {
   name: 'profile',
   components: {
@@ -51,6 +53,15 @@ export default {
     return {
       student: {}
     }
+  },
+  created() {
+    var _vm = this;
+    var currentUser = this.$store.state.currentUser;
+    axios.get(SERVER_URL.base + '/student/' + currentUser).then(function (res) {
+      _vm.student = {};
+      if (!res.data.error)
+        _vm.student = res.data;
+    });
   },
   mounted () {
     var _vm = this
@@ -66,7 +77,16 @@ export default {
   },
   methods: {
     update () {
-      alert('updated.')
+      var _vm = this;
+      var studentid = this.$store.state.currentUser;
+      axios.get(SERVER_URL.base + '/student/edit/' + studentid).then(function (res) {
+        if (res.data.error)
+        {
+          // toastr error
+          return;
+        }
+        // toastr updated successfully;
+      });
     }
   }
 }

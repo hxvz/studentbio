@@ -25,6 +25,14 @@ module.exports = function(bookshelf){
           this.errorMessage = e;
           return this;
         })
+    },
+    allRegisteredUsers: function() {
+      this.errorMessage = null;
+      return this.forge();
+    },
+    getUser: function(uid) {
+      this.errorMessage = null;
+      return this.forge();
     }
   }
 
