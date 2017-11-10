@@ -6,12 +6,13 @@
       <div class="row">
         <div class="col m12"><h4>{{studentsCount}} REGISTERED MEMBER {{url}} <!-- hack --></h4></div>
         <table>
-          <tr v-for="(student, index) in students" @click="update(student.username)">          
+          <tr v-for="(student, index) in students">          
             <td>{{student.first_name + " " +student.last_name}}</td>
             <td><strong>@{{student.user.username}}</strong></td>
             <td>{{student.state}}</td>
             <td>{{programs(student.program)}}</td>
             <td>{{student.skill_set}}</td>
+            <td><i class="material-icons red-text" @click="deleteStudent(student.user.id)">delete</i></td>
           </a>
         </td>
       </tr>
@@ -63,6 +64,15 @@ export default {
           _vm.students = res.data
         }
       }).catch(function(e){console.log(e)})
+    },
+    deleteStudent(id) {
+      if (confirm("Note: This student will no longer be able to participate as the account will be deleted permanently.")) {
+        var studentIndex = this.students.findIndex(function(student){
+          return student.user.id == id;
+        });
+
+        this.students.splice(studentIndex, 1);        
+      }
     }
   },
   mounted() {
