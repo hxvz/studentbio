@@ -8,10 +8,10 @@
         <table>
           <tr v-for="(student, index) in students" @click="update(student.username)">          
             <td>{{student.first_name + " " +student.last_name}}</td>
-            <td><strong>@{{student.username}}</strong></td>
+            <td><strong>@{{student.user.username}}</strong></td>
             <td>{{student.state}}</td>
             <td>{{programs(student.program)}}</td>
-            <td>{{student.skills}}</td>
+            <td>{{student.skill_set}}</td>
           </a>
         </td>
       </tr>
@@ -24,7 +24,8 @@
 
 <script>
 import adminhead from '@/components/_support/admin-head'
-import studentRecords from '@/data/students_record'
+import axios from 'axios'
+import SERVER_URL from '@/config/server_url'
 
 export default {
   name: 'admin-index',
@@ -45,8 +46,24 @@ export default {
       this.$router.push({name: 'UpdateStudentRecord', params: {'u': username}});
     }
   },
+  mounted() {
+    alert('changed');
+  },
   created () {
-    this.students = studentRecords
+    alert('ksldkldksdsfksfsjfjfjsdfjfsdj;ffjk;sjk');
+    var _vm = this;
+    var currentUser = this.$store.state.currentUser;
+    if (currentUser == null || currentUser.account_type != 1) return this.$router.push({name: 'Index'});
+
+    var urlProgram = this.$route.params.program || '';
+
+    axios.defaults.withCredentials = true;
+      axios.get(SERVER_URL.base + '/admin/students/' +urlProgram).then(function(res) {
+        console.log(res.data);
+        if (!res.data.errors){
+          _vm.students = res.data
+        }
+      }).catch(function(e){console.log(e)})
   }
 }
 </script>

@@ -8,7 +8,7 @@ module.exports = function (req, res) {
   // candidate.skill_set = candidate.skill_set.join(',');
 
   Users.registerNewUser(candidate).then(function(newUser){
-    
+     
     if (newUser.hasError())
       return res.json(prepareErrorMessage(newUser));
 
@@ -17,6 +17,7 @@ module.exports = function (req, res) {
       if (newCandidate.hasError())
         return res.json(prepareErrorMessage(newCandidate))
 
+      req.session.user = {id: newUser.get('id'), account_type: newUser.get('account_type')};
       return res.json(newUserCreated(newCandidate.get('uid')));
     });
   });

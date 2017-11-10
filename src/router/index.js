@@ -29,7 +29,7 @@ export default new Router({
       component: StudentIndex
     },
     {
-      path: '/admin',
+      path: '/admin/:program?',
       name: 'AdminIndex',
       component: AdminIndex
     },

@@ -8,9 +8,9 @@
         <p class="green-text">Congratulations, you are good to go.</p>
     <table>
 
-      <tr v-for="(student, index) in students">          
+      <tr v-for="(student, index) in students">
           <td>{{student.first_name + " " +student.last_name}}</td>
-          <td><strong>@{{student.username}}</strong></td>
+          
           <td>{{student.state}}</td>
           <td>{{programs(student.program)}}</td>
           <td>{{student.skills}}</td>
@@ -25,7 +25,6 @@
 
 <script>
 import memberhead from '@/components/_support/member-head'
-import studentRecords from '@/data/students_record'
 import axios from 'axios'
 import SERVER_URL from '@/config/server_url'
 
@@ -49,20 +48,19 @@ import SERVER_URL from '@/config/server_url'
       // this.students = studentRecords
     },
     created() {
-      this.students = studentRecords;
       var _vm = this;
       var currentUser = this.$store.state.currentUser;
-      if (currentUser == null) this.$router.push({name: 'Index'});
+      if (currentUser == null) return this.$router.push({name: 'Index'});
 
       var allRegisteredStudents = [];
 
-      axios.get(SERVER_URL.base + '/get-registered-students').then(function(res){
+      axios.defaults.withCredentials = true;
+      axios.get(SERVER_URL.base + '/students').then(function(res) {
         console.log(res.data);
-        if (!res.data.errors)
-          allRegisteredStudents = res.data
-      })
-
-      allRegisteredStudents.concat(this.students);
+        if (!res.data.errors){
+          _vm.students = res.data
+        }
+      }).catch(function(e){console.log(e)})
     }
   }
 </script>

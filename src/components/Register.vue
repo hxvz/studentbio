@@ -82,10 +82,10 @@ import axios from 'axios'
 		methods: {
 			register() {
 				var _vm = this;
-
+				axios.defaults.withCredentials = true;
 				axios.post('http://localhost:5000/create', {candidate: this.candidate}).then(function(res) {
 					
-					if (!res.data.error) {
+					if (!res.data.error) {						
 						_vm.$store.commit('SET_CURRENT_USER', {currentUser: res.data.uid});
 						_vm.$router.push({name:'StudentIndex'});
 					}

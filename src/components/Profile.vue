@@ -15,7 +15,10 @@
                 <div class="col m5 input-field"><input type="text" v-model="student.last_name"></div>
               </div>
               <div class="row">
-                <div class="col m5 offset-m1"><label for=""><input v-model="student.address" type="text"></label></div>
+                <div class="col m10 offset-m1"><label for=""><input v-model="student.address" type="text"></label></div>
+              </div>
+              <div class="row">
+                <div class="col m5 offset-m1"><label for=""><input v-model="student.email" type="text"></label></div>
                 <div class="col m5"><label for=""><input v-model="student.state" type="text"></label></div>
               </div>
 
@@ -56,30 +59,39 @@ export default {
   },
   created() {
     var _vm = this;
+
     var currentUser = this.$store.state.currentUser;
-    axios.get(SERVER_URL.base + '/student/' + currentUser).then(function (res) {
+    if (currentUser == null) return this.$router.push({name: 'Index'});
+      
+    axios.defaults.withCredentials = true;
+    axios.get(SERVER_URL.base + '/student/').then(function (res) {
       _vm.student = {};
-      if (!res.data.error)
-        _vm.student = res.data;
+      if (res.data.error) {
+      // toastr error
+      }
+      _vm.student = res.data.candidate;
+      _vm.student.password = '';
+      _vm.student.skill_set = _vm.student.skill_set.split(',');
+      var data = _vm.student.skill_set.map(function (skill) { return {tag: skill} });
+      $('.chips').material_chip({data: data});
+
     });
   },
   mounted () {
-    var _vm = this
-    this.student = students.slice(0, 1)[0]
-    this.student.password = ''
-    var skills = ['Javascript', 'VueJs', 'PHP', 'ActionScript', 'Python', 'HTML', 'CSS3', 'Angular4', 'PhotoShop']
-    var data = skills.map(function (skill) { return {tag: skill} })
-
-    $('.chips').material_chip({data: data})
+    var _vm = this;
     $('.chips').on('chip.add', function (e, chip) {
-      _vm.candidate.skills.push(chip.tag)
+      _vm.student.skill_set.push(chip.tag)
+    });
+    $('.chips').on('chip.delete', function(e, chip) {
+      _vm.student.skill_set.splice(_vm.student.skill_set.indexOf(chip.tag), 1);
     })
   },
   methods: {
     update () {
       var _vm = this;
-      var studentid = this.$store.state.currentUser;
-      axios.get(SERVER_URL.base + '/student/edit/' + studentid).then(function (res) {
+
+      axios.post(SERVER_URL.base + '/student/edit/', {candidate: this.student}).then(function (res) {
+        console.log(res.data);
         if (res.data.error)
         {
           // toastr error

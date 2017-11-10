@@ -26,6 +26,9 @@ const store = new Vuex.Store({
 	mutations: {
 		SET_CURRENT_USER: function (state, payload) {
 			state.currentUser = payload.currentUser;
+		},
+		REMOVE_CURRENT_USER: function(state, payload) {
+			state.currentUser = null;
 		}
 	}
 });
