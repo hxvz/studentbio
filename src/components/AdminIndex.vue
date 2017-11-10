@@ -4,7 +4,7 @@
 
     <div class="container">
       <div class="row">
-        <div class="col m12"><h4>REGISTERED MEMBER</h4></div>
+        <div class="col m12"><h4>{{studentsCount}} REGISTERED MEMBER {{url}} <!-- hack --></h4></div>
         <table>
           <tr v-for="(student, index) in students" @click="update(student.username)">          
             <td>{{student.first_name + " " +student.last_name}}</td>
@@ -37,6 +37,15 @@ export default {
       students: []
     }
   },
+  computed: {
+    url () {
+     var urlProgram = this.$route.params.program || '';
+    this.getRegisteredStudents(urlProgram);      
+    },
+    studentsCount() {
+      return this.students.length;
+    }
+  },
   methods: {
     programs (program) {
       var programs = ['Mobile Apps', 'Web Development', 'Product Design']
@@ -44,26 +53,28 @@ export default {
     },
     update (username) {
       this.$router.push({name: 'UpdateStudentRecord', params: {'u': username}});
-    }
-  },
-  mounted() {
-    alert('changed');
-  },
-  created () {
-    alert('ksldkldksdsfksfsjfjfjsdfjfsdj;ffjk;sjk');
-    var _vm = this;
-    var currentUser = this.$store.state.currentUser;
-    if (currentUser == null || currentUser.account_type != 1) return this.$router.push({name: 'Index'});
-
-    var urlProgram = this.$route.params.program || '';
-
-    axios.defaults.withCredentials = true;
+    },
+    getRegisteredStudents(urlProgram) {
+      var _vm = this;
+      axios.defaults.withCredentials = true;
       axios.get(SERVER_URL.base + '/admin/students/' +urlProgram).then(function(res) {
         console.log(res.data);
         if (!res.data.errors){
           _vm.students = res.data
         }
       }).catch(function(e){console.log(e)})
+    }
+  },
+  mounted() {
+    
+  },
+  created () {
+    var _vm = this;
+    var currentUser = this.$store.state.currentUser;
+    if (currentUser == null || currentUser.account_type != 1) return this.$router.push({name: 'Index'});
+
+    var urlProgram = this.$route.params.program || '';
+    this.getRegisteredStudents(urlProgram);
   }
 }
 </script>
